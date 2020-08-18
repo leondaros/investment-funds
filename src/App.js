@@ -76,23 +76,27 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
-            
-                <tr>
-                  <td className="risk"></td>
-                  <td>
-                    <div>
-                      <p>Nome</p>
-                      <p>Renda Fixa|Indexado Soberano</p>
-                    </div>
-                  </td>
-                  <td>29/04/</td>
-                  <td>0,47</td>
-                  <td>2,93</td>
-                  <td>13,16</td>
-                  <td>1.000,00</td>
-                  <td>Prazo</td>
-                  <td>Aplicar</td>
-                </tr>
+              {this.state.funds.map((element,key) => {
+                return(
+                  <tr key = {key}>
+                    <td className="risk"></td>
+                    <td>
+                      <div>
+                        <p>{element.simple_name}</p>
+                        <p>{element.specification.fund_macro_strategy.name}|{element.specification.fund_main_strategy.name}</p>
+                      </div>
+                    </td>
+                    <td>{element.quota_date}</td>
+                    <td>{element.profitabilities.month}</td>
+                    <td>{element.profitabilities.year}</td>
+                    <td>{element.profitabilities.m12}</td>
+                    <td>{element.operability.minimum_initial_application_amount}</td>
+                    <td>Prazo</td>
+                    <td>Aplicar</td>
+                  </tr>
+                )
+                })
+              }
               </tbody>
             </table> 
           </div>
