@@ -36,12 +36,13 @@ function App() {
         </div>
       </div>
       <hr></hr>
-      <div className="grid-container">
+      <div id="" className="grid-container">
         <div className="funds-table">
           <table>
             <thead>
               <tr>
-                <th width="200">Fundo</th>
+                <th></th>
+                <th>Fundo</th>
                 <th>Data da Cota</th>
                 <th>Mes(%)</th>
                 <th>2016(%)</th>
@@ -52,16 +53,21 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              <tr>Renda Fixa</tr>
+          
               <tr>
-                <td>COR</td>
-                <td>Fundo Nome</td>
-                <td>Data da Cota</td>
-                <td>Mes(%)</td>
-                <td>2016(%)</td>
-                <td>12M(%)</td>
-                <td>Aplicação Minima(%)</td>
-                <td>Prazo do Resgate</td>
+                <td className="risk"></td>
+                <td>
+                  <div>
+                    <p>Nome</p>
+                    <p>Renda Fixa|Indexado Soberano</p>
+                  </div>
+                </td>
+                <td>29/04/</td>
+                <td>0,47</td>
+                <td>2,93</td>
+                <td>13,16</td>
+                <td>1.000,00</td>
+                <td>Prazo</td>
                 <td>Aplicar</td>
               </tr>
             </tbody>
