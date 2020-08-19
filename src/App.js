@@ -3,7 +3,8 @@ import './App.css';
 import DinamicTable from './components/DinamicTable/DinamicTable'
 
 const initialState = {
-  funds: []
+  funds: [],
+  orderedFund: {}
 }
 
 class App extends Component {
@@ -17,11 +18,28 @@ class App extends Component {
     this.requestApi()
   }
 
+  fundsByStrategy = (data) => {
+    let ordered = {}
+    data.forEach(function(element){
+      if(!ordered.hasOwnProperty(element.specification.fund_macro_strategy.name)){
+        ordered[element.specification.fund_macro_strategy.name] = {}
+      }
+      if(!ordered[element.specification.fund_macro_strategy.name].hasOwnProperty(element.specification.fund_main_strategy.name)){
+        ordered[element.specification.fund_macro_strategy.name][element.specification.fund_main_strategy.name] = []
+      }
+      ordered[element.specification.fund_macro_strategy.name][element.specification.fund_main_strategy.name].push(element)
+    })
+    this.setState({orderedFund: ordered})
+  }
+
   requestApi = () => {
     fetch('https://s3.amazonaws.com/orama-media/json/fund_detail_full.json?limit=1000&offset=0&serializer=fund_detail_full')
     .then(res => res.json())
     .then(data => {
       this.setState({funds: this.state.funds.concat(data)})
+    })
+    .finally(() => {
+      this.fundsByStrategy(this.state.funds)
     });
   }
 
@@ -38,9 +56,9 @@ class App extends Component {
             <div className="grid-x">
               <div className="cell large-4">
                 <p className="title">Aplicação Minima</p>
-                <div class="slider" data-slider data-initial-start="200" data-end="20000">
-                  <span class="slider-handle"  data-slider-handle role="slider" tabindex="100"></span>
-                  <span class="slider-fill" data-slider-fill></span>
+                <div className="slider" data-slider data-initial-start="200" data-end="20000">
+                  <span className="slider-handle"  data-slider-handle role="slider" tabIndex="100"></span>
+                  <span className="slider-fill" data-slider-fill></span>
                   <input type="hidden"></input>
                 </div>
                 <p>Até R$20.000</p>
@@ -48,9 +66,9 @@ class App extends Component {
               <div className="cell large-4"></div>
               <div className="cell large-4">
                 <p className="title">Prazo de Resgate</p>
-                <div class="slider" data-slider data-initial-start="200" data-end="20000">
-                  <span class="slider-handle"  data-slider-handle role="slider" tabindex="100"></span>
-                  <span class="slider-fill" data-slider-fill></span>
+                <div className="slider" data-slider data-initial-start="200" data-end="20000">
+                  <span className="slider-handle"  data-slider-handle role="slider" tabIndex="100"></span>
+                  <span className="slider-fill" data-slider-fill></span>
                   <input type="hidden"></input>
                 </div>
                 <p>Até 30 Dias Uteis</p>
