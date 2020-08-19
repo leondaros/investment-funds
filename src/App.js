@@ -80,7 +80,7 @@ class App extends Component {
         <hr></hr>
         <div id="" className="grid-container">
           <div className="funds-table">
-             <DinamicTable funds={this.state.funds}/>
+             <DinamicTable funds={this.state.orderedFund}/>
           </div>
         </div>
       </div>
