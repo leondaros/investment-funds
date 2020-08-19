@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Moment from 'react-moment';
 
 const initialState = {
   funds: []
@@ -36,7 +37,7 @@ class App extends Component {
             </div>
             <div className="grid-x">
               <div className="cell large-4">
-                <p>Aplicação Minima</p>
+                <p className="title">Aplicação Minima</p>
                 <div class="slider" data-slider data-initial-start="200" data-end="20000">
                   <span class="slider-handle"  data-slider-handle role="slider" tabindex="100"></span>
                   <span class="slider-fill" data-slider-fill></span>
@@ -46,14 +47,14 @@ class App extends Component {
               </div>
               <div className="cell large-4"></div>
               <div className="cell large-4">
-              <p>Prazo de Resgate</p>
-              <div class="slider" data-slider data-initial-start="200" data-end="20000">
-                <span class="slider-handle"  data-slider-handle role="slider" tabindex="100"></span>
-                <span class="slider-fill" data-slider-fill></span>
-                <input type="hidden"></input>
+                <p className="title">Prazo de Resgate</p>
+                <div class="slider" data-slider data-initial-start="200" data-end="20000">
+                  <span class="slider-handle"  data-slider-handle role="slider" tabindex="100"></span>
+                  <span class="slider-fill" data-slider-fill></span>
+                  <input type="hidden"></input>
+                </div>
+                <p>Até 30 Dias Uteis</p>
               </div>
-              <p>Até 30 Dias Uteis</p>
-            </div>
             </div>
             <p>Horario Limite de aplicação 12:00</p>
           </div>
@@ -83,15 +84,15 @@ class App extends Component {
                     <td>
                       <div>
                         <p>{element.simple_name}</p>
-                        <p>{element.specification.fund_macro_strategy.name}|{element.specification.fund_main_strategy.name}</p>
+                        <p>{element.specification.fund_type}|{element.specification.fund_class}</p>
                       </div>
                     </td>
-                    <td>{element.quota_date}</td>
+                    <td><Moment format="DD/MM/YYYY">{element.quota_date}</Moment></td>
                     <td>{element.profitabilities.month}</td>
                     <td>{element.profitabilities.year}</td>
                     <td>{element.profitabilities.m12}</td>
                     <td>{element.operability.minimum_initial_application_amount}</td>
-                    <td>Prazo</td>
+                    <td>{element.operability.retrieval_quotation_days_str}</td>
                     <td>Aplicar</td>
                   </tr>
                 )
