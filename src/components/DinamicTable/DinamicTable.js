@@ -1,5 +1,6 @@
 import React from 'react'
 import './DinamicTable.css'
+import FundRows from '../FundRows/FundRows'
 import Moment from 'react-moment';
 
 const dinamicTable = (props) => {
@@ -8,7 +9,6 @@ const dinamicTable = (props) => {
         <table>
             <thead>
                 <tr>
-                    <th></th>
                     <th>Fundo</th>
                     <th>Data da Cota</th>
                     <th>Mes(%)</th>
@@ -28,7 +28,10 @@ const dinamicTable = (props) => {
                         {
                             Object.keys(props.funds[macro]).map((main) => {
                                 return (
-                                    <tr>{"main: "+main}</tr>
+                                    <div>
+                                        <tr>{"main: "+main}</tr>
+                                        <FundRows funds={props.funds[macro][main]}/>
+                                    </div>
                                 )
                             })
                         }
