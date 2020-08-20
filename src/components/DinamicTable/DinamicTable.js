@@ -5,6 +5,10 @@ import Moment from 'react-moment';
 
 const dinamicTable = (props) => {
 
+    let buildTable = () =>{
+        return ""
+    }
+
     return (
         <table>
             <thead>
@@ -21,23 +25,35 @@ const dinamicTable = (props) => {
             </thead>
             <tbody>
             {
-                Object.keys(props.funds).map((macro) => { 
-                    return (
-                        <div>
-                            <tr>{"macro: "+macro}</tr>
-                        {
-                            Object.keys(props.funds[macro]).map((main) => {
-                                return (
-                                    <div>
-                                        <tr>{"main: "+main}</tr>
-                                        <FundRows funds={props.funds[macro][main]}/>
-                                    </div>
-                                )
-                            })
-                        }
-                        </div>
-                    )
-                })
+                Object.keys(props.funds).map((function(macro){
+                    return ([
+                    <tr>{macro}</tr>,
+                    Object.keys(props.funds[macro]).map((function(main){
+                        return ([
+                        <tr>{main}</tr>,
+                        props.funds[macro][main].map((function(element){
+                            return (
+                                <tr>
+                                    <td>
+                                        <div>
+                                        <p>{element.simple_name}</p>
+                                        <p>{element.specification.fund_type}|{element.specification.fund_class}</p>
+                                        </div>
+                                    </td>
+                                    <td><Moment format="DD/MM/YYYY">{element.quota_date}</Moment></td>
+                                    <td>{element.profitabilities.month}</td>
+                                    <td>{element.profitabilities.year}</td>
+                                    <td>{element.profitabilities.m12}</td>
+                                    <td>{element.operability.minimum_initial_application_amount}</td>
+                                    <td>{element.operability.retrieval_quotation_days_str}</td>
+                                    <td>Aplicar</td>
+                                </tr>
+                            )
+                        }))
+                        ])
+                    }))
+                    ])
+                }))
             }
             </tbody>
         </table>
