@@ -57,7 +57,7 @@ class App extends Component {
               <div className="cell large-4">
                 <p className="title">Aplicação Minima</p>
                 <div className="slider" data-slider data-initial-start="200" data-end="20000">
-                  <span className="slider-handle"  data-slider-handle role="slider" tabIndex="100"></span>
+                  <span className="slider-handle" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" data-slider-handle role="slider" tabIndex="100"></span>
                   <span className="slider-fill" data-slider-fill></span>
                   <input type="hidden"></input>
                 </div>
@@ -67,7 +67,7 @@ class App extends Component {
               <div className="cell large-4">
                 <p className="title">Prazo de Resgate</p>
                 <div className="slider" data-slider data-initial-start="200" data-end="20000">
-                  <span className="slider-handle"  data-slider-handle role="slider" tabIndex="100"></span>
+                  <span className="slider-handle" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" data-slider-handle role="slider" tabIndex="100"></span>
                   <span className="slider-fill" data-slider-fill></span>
                   <input type="hidden"></input>
                 </div>
@@ -78,7 +78,7 @@ class App extends Component {
           </div>
         </div>
         <hr></hr>
-        <div id="" className="grid-container">
+        <div id="fund-container" className="grid-container">
           <div className="funds-table">
              <DinamicTable funds={this.state.orderedFund}/>
           </div>

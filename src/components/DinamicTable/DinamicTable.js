@@ -1,16 +1,20 @@
 import React from 'react'
 import './DinamicTable.css'
-import FundRows from '../FundRows/FundRows'
 import Moment from 'react-moment';
 
 const dinamicTable = (props) => {
 
-    let buildTable = () =>{
-        return ""
+    const retrievalQuotationFormat = (data) =>{
+        let index = data.indexOf("(") > 0 ? data.indexOf("(") : data.length
+        return data.slice(0,index)
+    }
+
+    const parseData = (data) =>{
+        return parseFloat(data).toFixed(2)
     }
 
     return (
-        <table>
+        <table className="unstriped">
             <thead>
                 <tr>
                     <th>Fundo</th>
@@ -18,34 +22,34 @@ const dinamicTable = (props) => {
                     <th>Mes(%)</th>
                     <th>2016(%)</th>
                     <th>12M(%)</th>
-                    <th>Aplicação Minima(%)</th>
+                    <th>Aplicação Minima(R$)</th>
                     <th>Prazo do Resgate</th>
                     <th>Aplicar</th>
                 </tr>
             </thead>
             <tbody>
             {
-                Object.keys(props.funds).map((function(macro){
+                Object.keys(props.funds).map((function(macro, macroKey){
                     return ([
-                    <tr>{macro}</tr>,
-                    Object.keys(props.funds[macro]).map((function(main){
+                    <tr key={macroKey} className="macro-strategy"><td colSpan="12">{macro}</td></tr>,
+                    Object.keys(props.funds[macro]).map((function(main, mainKey){
                         return ([
-                        <tr>{main}</tr>,
-                        props.funds[macro][main].map((function(element){
+                        <tr key={mainKey} className="main-strategy"><td colSpan="12">{main}</td></tr>,
+                        props.funds[macro][main].map((function(element, elementKey){
                             return (
-                                <tr>
+                                <tr key={elementKey} className="fund">
                                     <td>
                                         <div>
-                                        <p>{element.simple_name}</p>
-                                        <p>{element.specification.fund_type}|{element.specification.fund_class}</p>
+                                        <p className="fund-name">{element.simple_name}</p>
+                                        <p className="fund-specification">{element.specification.fund_type}|{element.specification.fund_class}</p>
                                         </div>
                                     </td>
                                     <td><Moment format="DD/MM/YYYY">{element.quota_date}</Moment></td>
-                                    <td>{element.profitabilities.month}</td>
-                                    <td>{element.profitabilities.year}</td>
-                                    <td>{element.profitabilities.m12}</td>
-                                    <td>{element.operability.minimum_initial_application_amount}</td>
-                                    <td>{element.operability.retrieval_quotation_days_str}</td>
+                                    <td>{parseData(element.profitabilities.month)}</td>
+                                    <td>{parseData(element.profitabilities.year)}</td>
+                                    <td>{parseData(element.profitabilities.m12)}</td>
+                                    <td>{parseData(element.operability.minimum_initial_application_amount)}</td>
+                                    <td>{retrievalQuotationFormat(element.operability.retrieval_quotation_days_str)}</td>
                                     <td>Aplicar</td>
                                 </tr>
                             )
