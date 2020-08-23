@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import aplicar from './aplicar.png'
 import information from './information.png'
 
-import { Tooltip, LinkWithTooltip } from 'react-foundation-components/lib/tooltip';
+import { LinkWithTooltip } from 'react-foundation-components/lib/tooltip';
 
 
 const dinamicTable = (props) => {
@@ -52,10 +52,11 @@ const dinamicTable = (props) => {
                         props.funds[macro][main].map((function(element, elementKey){
                             return (
                                 <tr key={elementKey} className="fund">
-                                    <td>
-                                        <div>
-                                        <p className="fund-name">{element.simple_name}</p>
-                                        <p className="fund-specification">{element.specification.fund_type}|{element.specification.fund_class}</p>
+                                    <td className="fund-info">
+                                        <div className="fund-risk"></div>
+                                        <div className="fund-name-specification">
+                                            <p className="fund-name">{element.simple_name}</p>
+                                            <p className="fund-specification">{element.specification.fund_type}|{element.specification.fund_class}</p>
                                         </div>
                                     </td>
                                     <td><Moment format="DD/MM/YYYY">{element.quota_date}</Moment></td>

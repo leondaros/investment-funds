@@ -26,9 +26,64 @@ table p{
     text-align: initial;
     font-weight: bold;
     background-color: #fafafa;
-    /* background-color: #f0f2f0; */
+}
+
+table.unstriped tbody tr.fund{
+    border-bottom: 0px;
 }
 
 .fund p, td{
     font-weight: bold;
+}
+
+.fund-info{
+    display: flex;
+    padding: 0px;
+}
+
+.fund-name-specification{
+    margin: 10px 7px
+}
+
+.fund-risk{
+    background-color: red;
+    position: relative;
+    width: 7px;
+  }
+
+.risk-1{
+    background-color: #a3eaff;
+}
+.risk-2{
+    background-color: #51fce0
+}
+.risk-3{
+    background-color: #75ff6e;
+}
+.risk-4{
+    background-color: #96ff23;
+}
+.risk-5{
+    background-color: #ccff00;
+}
+.risk-6{
+    background-color: #efff00;
+}
+.risk-7{
+    background-color: #f7f000;
+}
+.risk-8{
+    background-color: #fcc900;
+}
+.risk-9{
+    background-color: #ff8a00;
+}
+.risk-10{
+    background-color: #ff5200;
+}
+.risk-11{
+    background-color: #ff0000;
+}
+.risk-12{
+    background-color: #b80000;
 }
