@@ -23,6 +23,11 @@ const dinamicTable = (props) => {
         }
     }
 
+    const getFundRisk = (risk) =>{
+        let riskLevel = "fund-risk risk-"+risk
+        return (<div className={riskLevel}></div>)
+    }
+
     const parseData = (data) =>{
         return parseFloat(data).toFixed(2)
     }
@@ -53,7 +58,7 @@ const dinamicTable = (props) => {
                             return (
                                 <tr key={elementKey} className="fund">
                                     <td className="fund-info">
-                                        <div className="fund-risk"></div>
+                                        {getFundRisk(element.specification.fund_risk_profile.score_range_order)}
                                         <div className="fund-name-specification">
                                             <p className="fund-name">{element.simple_name}</p>
                                             <p className="fund-specification">{element.specification.fund_type}|{element.specification.fund_class}</p>
