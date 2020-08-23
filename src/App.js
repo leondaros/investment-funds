@@ -46,11 +46,13 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        <div className="grid-container">
+        <div id="fund-filter" className="grid-container">
           <div>
             <div className="grid-x">
               <div className="cell large-6">
-                <input type="search" placeholder="Search"></input>
+                <div class="input-group">
+                  <input className="searchbar" type="search" placeholder="Buscar fundo por nome"></input>
+                </div>
               </div>
             </div>
             <div className="grid-x">
