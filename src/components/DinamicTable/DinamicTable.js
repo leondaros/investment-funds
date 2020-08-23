@@ -1,12 +1,26 @@
 import React from 'react'
 import './DinamicTable.css'
 import Moment from 'react-moment';
+import aplicar from './aplicar.png'
+import information from './information.png'
+
+import { Tooltip, LinkWithTooltip } from 'react-foundation-components/lib/tooltip';
+
 
 const dinamicTable = (props) => {
 
     const retrievalQuotationFormat = (data) =>{
-        let index = data.indexOf("(") > 0 ? data.indexOf("(") : data.length
-        return data.slice(0,index)
+        if(data.indexOf("(") > 0 ){
+            return data.slice(0,data.indexOf("("))
+        }else if(data.length>10){
+            return (
+                <LinkWithTooltip className="quotation-days-info" tooltipPosition="top" tooltipContent={data}>
+                    <img src={information} alt="Aplicar"/>
+                </LinkWithTooltip>
+            )
+        }else{
+            return data
+        }
     }
 
     const parseData = (data) =>{
@@ -50,7 +64,8 @@ const dinamicTable = (props) => {
                                     <td>{parseData(element.profitabilities.m12)}</td>
                                     <td>{parseData(element.operability.minimum_initial_application_amount)}</td>
                                     <td>{retrievalQuotationFormat(element.operability.retrieval_quotation_days_str)}</td>
-                                    <td>Aplicar</td>
+
+                                    <td><img src={aplicar} alt="Aplicar"></img></td>
                                 </tr>
                             )
                         }))
