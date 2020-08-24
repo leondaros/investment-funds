@@ -28,3 +28,11 @@ input.searchbar{
   box-shadow: none;
   color: black;
 }
+
+#filter-container.grid-x{
+  background-color: lightgray;
+}
+
+#filter-container.grid-x .cell{
+  padding: 30px;
+}

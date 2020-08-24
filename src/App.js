@@ -50,18 +50,17 @@ class App extends Component {
           <div>
             <div className="grid-x">
               <div className="cell large-6">
-                <div class="input-group">
+                <div className="input-group">
                   <input className="searchbar" type="search" placeholder="Buscar fundo por nome"></input>
                 </div>
               </div>
             </div>
-            <div className="grid-x">
+            <div id="filter-container" className="grid-x">
               <div className="cell large-4">
                 <p className="title">Aplicação Minima</p>
                 <div className="slider" data-slider data-initial-start="200" data-end="20000">
-                  <span className="slider-handle" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" data-slider-handle role="slider" tabIndex="100"></span>
+                  <span className="slider-handle"  data-slider-handle role="slider" tabIndex="1"></span>
                   <span className="slider-fill" data-slider-fill></span>
-                  <input type="hidden"></input>
                 </div>
                 <p>Até R$20.000</p>
               </div>
@@ -69,9 +68,8 @@ class App extends Component {
               <div className="cell large-4">
                 <p className="title">Prazo de Resgate</p>
                 <div className="slider" data-slider data-initial-start="200" data-end="20000">
-                  <span className="slider-handle" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" data-slider-handle role="slider" tabIndex="100"></span>
+                  <span className="slider-handle"  data-slider-handle role="slider" tabIndex="1"></span>
                   <span className="slider-fill" data-slider-fill></span>
-                  <input type="hidden"></input>
                 </div>
                 <p>Até 30 Dias Uteis</p>
               </div>
