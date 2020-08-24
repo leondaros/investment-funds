@@ -4,7 +4,11 @@ import DinamicTable from './components/DinamicTable/DinamicTable'
 
 const initialState = {
   funds: [],
-  orderedFund: {}
+  orderedFund: {},
+  maxRetrievalDays: 0,
+  maxApplication: 0,
+  minimumApplicationSearch: null,
+  retrievalQuotationDaysSearch: null
 }
 
 class App extends Component {
@@ -18,8 +22,14 @@ class App extends Component {
     this.requestApi()
   }
 
+  getHighestValue = () =>{
+
+  }
+
   fundsByStrategy = (data) => {
     let ordered = {}
+    let maxApplication = 0
+    let maxRetrievalDays = 0
     data.forEach(function(element){
       if(!ordered.hasOwnProperty(element.specification.fund_macro_strategy.name)){
         ordered[element.specification.fund_macro_strategy.name] = {}
@@ -28,8 +38,15 @@ class App extends Component {
         ordered[element.specification.fund_macro_strategy.name][element.specification.fund_main_strategy.name] = []
       }
       ordered[element.specification.fund_macro_strategy.name][element.specification.fund_main_strategy.name].push(element)
+      if(maxApplication < element.operability.minimum_initial_application_amount){
+        maxApplication = element.operability.minimum_initial_application_amount
+      }
+      if(maxRetrievalDays < element.operability.retrieval_quotation_days){
+        maxRetrievalDays = element.operability.retrieval_quotation_days
+      }
+      
     })
-    this.setState({orderedFund: ordered})
+    this.setState({orderedFund: ordered, maxRetrievalDays: maxRetrievalDays, maxApplication: maxApplication})
   }
 
   requestApi = () => {
@@ -58,7 +75,7 @@ class App extends Component {
             <div id="filter-container" className="grid-x">
               <div className="cell large-4">
                 <p className="title">Aplicação Minima</p>
-                <div className="slider" data-slider data-initial-start="200" data-end="20000">
+                <div className="slider" data-slider data-initial-start="50">
                   <span className="slider-handle"  data-slider-handle role="slider" tabIndex="1"></span>
                   <span className="slider-fill" data-slider-fill></span>
                 </div>
@@ -67,7 +84,7 @@ class App extends Component {
               <div className="cell large-4"></div>
               <div className="cell large-4">
                 <p className="title">Prazo de Resgate</p>
-                <div className="slider" data-slider data-initial-start="200" data-end="20000">
+                <div className="slider" data-slider data-initial-start="50">
                   <span className="slider-handle"  data-slider-handle role="slider" tabIndex="1"></span>
                   <span className="slider-fill" data-slider-fill></span>
                 </div>
