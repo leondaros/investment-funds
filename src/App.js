@@ -35,16 +35,18 @@ class App extends Component {
   }
 
   filterData = (minimumApplication,retrievalQuotationDays) =>{
-    let elMinimumApp = element.operability.minimum_initial_application_amount
-    let elRetrievalDays = element.operability.retrieval_quotation_days_str
+    console.log('filter')
     let filtedData = this.state.funds.map((function(element){
       if(minimumApplication && retrievalQuotationDays){
-        if(elMinimumApp <= minimumApplication && elRetrievalDays<=retrievalQuotationDays){
+        if(element.operability.minimum_initial_application_amount <= minimumApplication &&
+            element.operability.retrieval_quotation_days_str <= retrievalQuotationDays){
           return element
         }
-      }else if(minimumApplication && (elMinimumApp <= minimumApplication)){
+      }else if(minimumApplication && 
+        (element.operability.minimum_initial_application_amount <= minimumApplication)){
         return element
-      }else if(retrievalQuotationDays && (elRetrievalDays<=retrievalQuotationDays)){
+      }else if(retrievalQuotationDays &&
+        (element.operability.retrieval_quotation_days_str <= retrievalQuotationDays)){
         return element
       }
     }))
@@ -109,7 +111,7 @@ class App extends Component {
                 <div id="minApplicationSlider" className="slider" data-slider data-initial-start={0} data-end={this.state.maxApplication}>
                   <span className="slider-handle" data-slider-handle role="slider" tabIndex="1" aria-valuemax={5000000} aria-valuemin={0} aria-valuenow={50}></span>
                   <span className="slider-fill" data-slider-fill></span>
-                  <input type="text" onChange={(e) => this.handleChange(e)}></input>
+                  <input type="hidden" onChange={(e) => this.handleChange(e)}></input>
                 </div>
                 <p>Até R$20.000</p>
               </div>
