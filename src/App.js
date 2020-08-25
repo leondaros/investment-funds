@@ -5,10 +5,10 @@ import DinamicTable from './components/DinamicTable/DinamicTable'
 const initialState = {
   funds: [],
   orderedFund: {},
-  maxRetrievalDays: 0,
-  maxApplication: 0,
-  minimumApplicationSearch: null,
-  retrievalQuotationDaysSearch: null
+  maxRetrievalDays: 5000000,
+  maxApplication: 500,
+  minimumApplicationSearch: 0,
+  retrievalQuotationDaysSearch: 0
 }
 
 class App extends Component {
@@ -22,14 +22,52 @@ class App extends Component {
     this.requestApi()
   }
 
-  getHighestValue = () =>{
+  componentDidMount = () =>{
+    // $('#minApplicationSlider').on('moved.zf.slider', function() {
+    //   var value = $(this).attr('data-slider');
+    //   console.log(value)
+    // });
+  }
 
+  handleChange = (event) =>{
+    this.setState({minimumApplicationSearch: event.target.value});
+    this.filterData(this.state.minimumApplicationSearch,this.state.retrievalQuotationDaysSearch)
+  }
+
+  filterData = (minimumApplication,retrievalQuotationDays) =>{
+    let elMinimumApp = element.operability.minimum_initial_application_amount
+    let elRetrievalDays = element.operability.retrieval_quotation_days_str
+    let filtedData = this.state.funds.map((function(element){
+      if(minimumApplication && retrievalQuotationDays){
+        if(elMinimumApp <= minimumApplication && elRetrievalDays<=retrievalQuotationDays){
+          return element
+        }
+      }else if(minimumApplication && (elMinimumApp <= minimumApplication)){
+        return element
+      }else if(retrievalQuotationDays && (elRetrievalDays<=retrievalQuotationDays)){
+        return element
+      }
+    }))
+    this.fundsByStrategy(filtedData)
+  }
+
+  getFilterMaxValue = (data) =>{
+    let maxApplication = 0
+    let maxRetrievalDays = 0
+    data.forEach(function(element){
+      if(maxApplication < element.operability.minimum_initial_application_amount){
+        maxApplication = element.operability.minimum_initial_application_amount
+      }
+      if(maxRetrievalDays < element.operability.retrieval_quotation_days){
+        maxRetrievalDays = element.operability.retrieval_quotation_days
+      }
+    })
+    this.setState({maxRetrievalDays: maxRetrievalDays, maxApplication: maxApplication})
   }
 
   fundsByStrategy = (data) => {
     let ordered = {}
-    let maxApplication = 0
-    let maxRetrievalDays = 0
+    this.getFilterMaxValue(data)
     data.forEach(function(element){
       if(!ordered.hasOwnProperty(element.specification.fund_macro_strategy.name)){
         ordered[element.specification.fund_macro_strategy.name] = {}
@@ -38,15 +76,8 @@ class App extends Component {
         ordered[element.specification.fund_macro_strategy.name][element.specification.fund_main_strategy.name] = []
       }
       ordered[element.specification.fund_macro_strategy.name][element.specification.fund_main_strategy.name].push(element)
-      if(maxApplication < element.operability.minimum_initial_application_amount){
-        maxApplication = element.operability.minimum_initial_application_amount
-      }
-      if(maxRetrievalDays < element.operability.retrieval_quotation_days){
-        maxRetrievalDays = element.operability.retrieval_quotation_days
-      }
-      
     })
-    this.setState({orderedFund: ordered, maxRetrievalDays: maxRetrievalDays, maxApplication: maxApplication})
+    this.setState({orderedFund: ordered})
   }
 
   requestApi = () => {
@@ -75,17 +106,18 @@ class App extends Component {
             <div id="filter-container" className="grid-x">
               <div className="cell large-4">
                 <p className="title">Aplicação Minima</p>
-                <div className="slider" data-slider data-initial-start="50">
-                  <span className="slider-handle"  data-slider-handle role="slider" tabIndex="1"></span>
+                <div id="minApplicationSlider" className="slider" data-slider data-initial-start={0} data-end={this.state.maxApplication}>
+                  <span className="slider-handle" data-slider-handle role="slider" tabIndex="1" aria-valuemax={5000000} aria-valuemin={0} aria-valuenow={50}></span>
                   <span className="slider-fill" data-slider-fill></span>
+                  <input type="text" onChange={(e) => this.handleChange(e)}></input>
                 </div>
                 <p>Até R$20.000</p>
               </div>
               <div className="cell large-4"></div>
               <div className="cell large-4">
                 <p className="title">Prazo de Resgate</p>
-                <div className="slider" data-slider data-initial-start="50">
-                  <span className="slider-handle"  data-slider-handle role="slider" tabIndex="1"></span>
+                <div className="slider" data-slider data-initial-start="0">
+                  <span className="slider-handle"  data-slider-handle role="slider" tabIndex="1" aria-valuemax={this.state.maxApplication} aria-valuemin={0} aria-valuenow={50}></span>
                   <span className="slider-fill" data-slider-fill></span>
                 </div>
                 <p>Até 30 Dias Uteis</p>
