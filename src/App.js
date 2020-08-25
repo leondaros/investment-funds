@@ -8,7 +8,7 @@ const initialState = {
   maxRetrievalDays: 5000000,
   maxApplication: 500,
   minimumApplicationSearch: 0,
-  retrievalQuotationDaysSearch: 0
+  retrievalQuotationDaysSearch: null
 }
 
 class App extends Component {
@@ -35,30 +35,36 @@ class App extends Component {
   }
 
   filterData = (minimumApplication,retrievalQuotationDays) =>{
-    console.log('filter')
-    let filtedData = this.state.funds.map((function(element){
+    let filteredData = this.state.funds.filter(element => {
+      let minInitialApp = parseFloat(element.operability.minimum_initial_application_amount)
       if(minimumApplication && retrievalQuotationDays){
-        if(element.operability.minimum_initial_application_amount <= minimumApplication &&
-            element.operability.retrieval_quotation_days_str <= retrievalQuotationDays){
+        if(minInitialApp <= minimumApplication &&
+            element.operability.retrieval_quotation_days <= retrievalQuotationDays){
+              console.log("teste1")
           return element
         }
       }else if(minimumApplication && 
-        (element.operability.minimum_initial_application_amount <= minimumApplication)){
+        (minInitialApp <= minimumApplication)){
+          console.log("teste2")
         return element
       }else if(retrievalQuotationDays &&
         (element.operability.retrieval_quotation_days_str <= retrievalQuotationDays)){
+        console.log("teste3")
         return element
       }
-    }))
-    this.fundsByStrategy(filtedData)
+    })
+    console.log("refiltrar")
+    console.log(filteredData.length)
+    console.log(this.state.funds.length)
+    this.fundsByStrategy(filteredData)
   }
 
   getFilterMaxValue = (data) =>{
     let maxApplication = 0
     let maxRetrievalDays = 0
     data.forEach(function(element){
-      if(maxApplication < element.operability.minimum_initial_application_amount){
-        maxApplication = element.operability.minimum_initial_application_amount
+      if(maxApplication < parseFloat(element.operability.minimum_initial_application_amount)){
+        maxApplication = parseFloat(element.operability.minimum_initial_application_amount)
       }
       if(maxRetrievalDays < element.operability.retrieval_quotation_days){
         maxRetrievalDays = element.operability.retrieval_quotation_days
@@ -69,7 +75,6 @@ class App extends Component {
 
   fundsByStrategy = (data) => {
     let ordered = {}
-    this.getFilterMaxValue(data)
     data.forEach(function(element){
       if(!ordered.hasOwnProperty(element.specification.fund_macro_strategy.name)){
         ordered[element.specification.fund_macro_strategy.name] = {}
@@ -90,6 +95,7 @@ class App extends Component {
     })
     .finally(() => {
       this.fundsByStrategy(this.state.funds)
+      this.getFilterMaxValue(this.state.funds)
     });
   }
 
@@ -111,7 +117,7 @@ class App extends Component {
                 <div id="minApplicationSlider" className="slider" data-slider data-initial-start={0} data-end={this.state.maxApplication}>
                   <span className="slider-handle" data-slider-handle role="slider" tabIndex="1" aria-valuemax={5000000} aria-valuemin={0} aria-valuenow={50}></span>
                   <span className="slider-fill" data-slider-fill></span>
-                  <input type="hidden" onChange={(e) => this.handleChange(e)}></input>
+                  <input type="text" onChange={(e) => this.handleChange(e)}></input>
                 </div>
                 <p>Até R$20.000</p>
               </div>
