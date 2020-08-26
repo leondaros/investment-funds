@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import DinamicTable from './components/DinamicTable/DinamicTable'
+import StrategyFilter from './components/StrategyFilter/StrategyFilter'
 
 const initialState = {
   funds: [],
@@ -36,27 +37,21 @@ class App extends Component {
 
   filterData = (minimumApplication,retrievalQuotationDays) =>{
     let filteredData = this.state.funds.filter(element => {
-      let minInitialApp = parseFloat(element.operability.minimum_initial_application_amount)
+      let minInitialApp = parseFloat(element.operability.minimum_initial_application_amount).toFixed()
       if(minimumApplication && retrievalQuotationDays){
         if(minInitialApp <= minimumApplication &&
             element.operability.retrieval_quotation_days <= retrievalQuotationDays){
-              console.log("teste1")
           return element
         }
       }else if(minimumApplication && 
         (minInitialApp <= minimumApplication)){
-          console.log("teste2")
         return element
       }else if(retrievalQuotationDays &&
         (element.operability.retrieval_quotation_days_str <= retrievalQuotationDays)){
-        console.log("teste3")
         return element
       }
     })
-    console.log("refiltrar")
-    console.log(filteredData.length)
-    console.log(this.state.funds.length)
-    this.fundsByStrategy(filteredData)
+    this.orderByStrategy(filteredData)
   }
 
   getFilterMaxValue = (data) =>{
@@ -73,7 +68,7 @@ class App extends Component {
     this.setState({maxRetrievalDays: maxRetrievalDays, maxApplication: maxApplication})
   }
 
-  fundsByStrategy = (data) => {
+  orderByStrategy = (data) => {
     let ordered = {}
     data.forEach(function(element){
       if(!ordered.hasOwnProperty(element.specification.fund_macro_strategy.name)){
@@ -94,7 +89,7 @@ class App extends Component {
       this.setState({funds: this.state.funds.concat(data)})
     })
     .finally(() => {
-      this.fundsByStrategy(this.state.funds)
+      this.orderByStrategy(this.state.funds)
       this.getFilterMaxValue(this.state.funds)
     });
   }
@@ -133,6 +128,9 @@ class App extends Component {
             </div>
             <p>Horario Limite de aplicação 12:00</p>
           </div>
+        </div>
+        <div id="fund-strategy" className="grid-container">
+          <StrategyFilter funds={this.state.orderedFund}/>
         </div>
         <hr></hr>
         <div id="fund-container" className="grid-container">
