@@ -35,20 +35,22 @@ class App extends Component {
     this.filterData(this.state.minimumApplicationSearch,this.state.retrievalQuotationDaysSearch)
   }
 
-  filterData = (minimumApplication,retrievalQuotationDays) =>{
+  filterData = (minimumApplication,retrievalQuotationDays, mainStrategys) =>{
     let filteredData = this.state.funds.filter(element => {
-      let minInitialApp = parseFloat(element.operability.minimum_initial_application_amount).toFixed()
-      if(minimumApplication && retrievalQuotationDays){
-        if(minInitialApp <= minimumApplication &&
-            element.operability.retrieval_quotation_days <= retrievalQuotationDays){
+      if(mainStrategys.includes(element.specification.fund_main_strategy.name)){
+        let minInitialApp = parseFloat(element.operability.minimum_initial_application_amount).toFixed()
+        if(minimumApplication && retrievalQuotationDays){
+          if(minInitialApp <= minimumApplication &&
+              element.operability.retrieval_quotation_days <= retrievalQuotationDays){
+            return element
+          }
+        }else if(minimumApplication && 
+          (minInitialApp <= minimumApplication)){
+          return element
+        }else if(retrievalQuotationDays &&
+          (element.operability.retrieval_quotation_days_str <= retrievalQuotationDays)){
           return element
         }
-      }else if(minimumApplication && 
-        (minInitialApp <= minimumApplication)){
-        return element
-      }else if(retrievalQuotationDays &&
-        (element.operability.retrieval_quotation_days_str <= retrievalQuotationDays)){
-        return element
       }
     })
     this.orderByStrategy(filteredData)
