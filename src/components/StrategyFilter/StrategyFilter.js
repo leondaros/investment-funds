@@ -13,7 +13,7 @@ const strategyFilter = (props) => {
                       <div className="card-divider">
                         <div className="input-group">
                           <input className="strategy-input" type="checkbox"  id={macro} name={macro}/>
-                          <label className="strategy-label" for={macro}>{macro}</label>
+                          <label className="strategy-label" htmlFor={macro}>{macro}</label>
                         </div>
                       </div>
                       {
@@ -22,7 +22,7 @@ const strategyFilter = (props) => {
                             <div key={mainKey} className="card-section">
                               <div className="input-group">
                                 <input className="strategy-input" type="checkbox"  id={main} name={main}/>
-                                <label className="strategy-label" for={main}>{main}</label>
+                                <label className="strategy-label" htmlFor={main}>{main}</label>
                               </div>
                             </div>
                           )
