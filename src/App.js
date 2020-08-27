@@ -34,7 +34,7 @@ class App extends Component {
     if(minimumApplication === "" && retrievalQuotationDays === ""){
       this.orderByStrategy(this.state.funds)
     }else{
-      let filteredData = this.state.funds.filter(element => {
+      let filteredData = this.state.funds.filter(function(element) {
           let minInitialApp = parseFloat(element.operability.minimum_initial_application_amount).toFixed()
           if(minimumApplication !== "" && retrievalQuotationDays !== ""){
             if(minInitialApp <= minimumApplication &&
@@ -48,6 +48,7 @@ class App extends Component {
             element.operability.retrieval_quotation_days <= retrievalQuotationDays){
               return element
           }
+          return
       })
       this.orderByStrategy(filteredData)
     }
