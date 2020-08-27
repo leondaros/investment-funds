@@ -1,0 +1,9 @@
+div.input-group{
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+input.strategy-input{
+    margin: 0px;
+}

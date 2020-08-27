@@ -100,7 +100,7 @@ class App extends Component {
     return (
       <div className="App grid-container">
         <div className="container grid-x grid-margin-x grid-margin-y">
-          <div id="fund-filter" className="cell large-9">
+          <div id="fund-filter" className="cell large-10">
               <div className="grid-x">
                 <div className="cell large-6">
                   <div className="input-group">
@@ -132,10 +132,10 @@ class App extends Component {
                 <p>Horario Limite de aplicação 12:00</p>
               </div>
             </div>
-          <div id="fund-strategy" className="cell large-3">
+          <div id="fund-strategy" className="cell large-2">
             <StrategyFilter funds={this.state.orderedFund}/>
           </div>
-          <div id="fund-container" className="cell large-9">
+          <div id="fund-container" className="cell large-10">
             <div className="funds-table">
               <DinamicTable funds={this.state.orderedFund}/>
             </div>
