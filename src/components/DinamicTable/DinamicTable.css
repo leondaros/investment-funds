@@ -19,13 +19,13 @@ table p{
     text-align: initial;
     font-weight: bold;
     text-transform: uppercase;
-    background-color: #e3e3e3
+    background-color: #eff0f2
 }
 
 .main-strategy td{
     text-align: initial;
     font-weight: bold;
-    background-color: #fafafa;
+    background-color: #f4f5f7;
 }
 
 table.unstriped tbody tr.fund{

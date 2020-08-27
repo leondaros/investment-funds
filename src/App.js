@@ -134,7 +134,7 @@ class App extends Component {
                     <p>Até 30 Dias Uteis</p>
                   </div>
                 </div>
-                <p>Horario Limite de aplicação 12:00</p>
+                <p className="application-limit">Horario Limite de aplicação 12:00</p>
               </div>
             </div>
           <div id="fund-strategy" className="cell large-2">
