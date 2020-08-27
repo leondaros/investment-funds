@@ -98,8 +98,13 @@ class App extends Component {
 
   render(){
     return (
-      <div className="App grid-container">
-        <div className="container grid-x grid-margin-x grid-margin-y">
+      <div className="App">
+        <div class="header">
+          <h1>Lista de Fundos de Investimento</h1>
+          <p>Conheça a nossa lista de fundos</p>
+        </div>
+        <div className=" grid-container">
+          <div className="container grid-x grid-margin-x grid-margin-y">
           <div id="fund-filter" className="cell large-10">
               <div className="grid-x">
                 <div className="cell large-6">
@@ -140,6 +145,7 @@ class App extends Component {
               <DinamicTable funds={this.state.orderedFund}/>
             </div>
           </div>
+        </div>
         </div>
       </div>
     );

@@ -11,7 +11,10 @@ const strategyFilter = (props) => {
                 return (
                   <div key={macroKey} className="card">
                       <div className="card-divider">
-                        {macro}
+                        <div className="input-group">
+                          <input className="strategy-input" type="checkbox"  id={macro} name={macro}/>
+                          <label className="strategy-label" for={macro}>{macro}</label>
+                        </div>
                       </div>
                       {
                         Object.keys(props.funds[macro]).map((function(main, mainKey){
@@ -19,7 +22,7 @@ const strategyFilter = (props) => {
                             <div key={mainKey} className="card-section">
                               <div className="input-group">
                                 <input className="strategy-input" type="checkbox"  id={main} name={main}/>
-                                <label for={main}>{main}</label>
+                                <label className="strategy-label" for={main}>{main}</label>
                               </div>
                             </div>
                           )

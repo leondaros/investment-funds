@@ -1,7 +1,16 @@
+.card-divider .input-group{
+    text-transform: uppercase;
+}
+
 div.input-group{
     display: flex;
     align-items: center;
     text-align: left;
+    font-weight: bold;
+}
+
+.strategy-label{
+    font-weight: bold;
 }
 
 input.strategy-input{
