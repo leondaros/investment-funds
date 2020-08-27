@@ -98,46 +98,47 @@ class App extends Component {
 
   render(){
     return (
-      <div className="App">
-        <div id="fund-filter" className="grid-container">
-          <div>
-            <div className="grid-x">
-              <div className="cell large-6">
-                <div className="input-group">
-                  <input className="searchbar" type="search" placeholder="Buscar fundo por nome"></input>
+      <div className="App grid-container">
+        <div className="container grid-x grid-margin-x grid-margin-y">
+          <div id="fund-filter" className="cell large-9">
+              <div className="grid-x">
+                <div className="cell large-6">
+                  <div className="input-group">
+                    <input className="searchbar" type="search" placeholder="Buscar fundo por nome"></input>
+                  </div>
                 </div>
+              </div>
+              <div className="grid-container">
+                <div id="filter-container" className="grid-x">
+                  <div className="cell large-4">
+                    <p className="title">Aplicação Minima</p>
+                    <div id="minApplicationSlider" className="slider" data-slider data-initial-start={0} data-end={this.state.maxApplication}>
+                      <span className="slider-handle" data-slider-handle role="slider" tabIndex="1" aria-valuemax={5000000} aria-valuemin={0} aria-valuenow={50}></span>
+                      <span className="slider-fill" data-slider-fill></span>
+                      <input type="text" onChange={(e) => this.handleChange(e)}></input>
+                    </div>
+                    <p>Até R$20.000</p>
+                  </div>
+                  <div className="cell large-4"></div>
+                  <div className="cell large-4">
+                    <p className="title">Prazo de Resgate</p>
+                    <div className="slider" data-slider data-initial-start="0">
+                      <span className="slider-handle"  data-slider-handle role="slider" tabIndex="1" aria-valuemax={this.state.maxApplication} aria-valuemin={0} aria-valuenow={50}></span>
+                      <span className="slider-fill" data-slider-fill></span>
+                    </div>
+                    <p>Até 30 Dias Uteis</p>
+                  </div>
+                </div>
+                <p>Horario Limite de aplicação 12:00</p>
               </div>
             </div>
-            <div id="filter-container" className="grid-x">
-              <div className="cell large-4">
-                <p className="title">Aplicação Minima</p>
-                <div id="minApplicationSlider" className="slider" data-slider data-initial-start={0} data-end={this.state.maxApplication}>
-                  <span className="slider-handle" data-slider-handle role="slider" tabIndex="1" aria-valuemax={5000000} aria-valuemin={0} aria-valuenow={50}></span>
-                  <span className="slider-fill" data-slider-fill></span>
-                  <input type="text" onChange={(e) => this.handleChange(e)}></input>
-                </div>
-                <p>Até R$20.000</p>
-              </div>
-              <div className="cell large-4"></div>
-              <div className="cell large-4">
-                <p className="title">Prazo de Resgate</p>
-                <div className="slider" data-slider data-initial-start="0">
-                  <span className="slider-handle"  data-slider-handle role="slider" tabIndex="1" aria-valuemax={this.state.maxApplication} aria-valuemin={0} aria-valuenow={50}></span>
-                  <span className="slider-fill" data-slider-fill></span>
-                </div>
-                <p>Até 30 Dias Uteis</p>
-              </div>
-            </div>
-            <p>Horario Limite de aplicação 12:00</p>
+          <div id="fund-strategy" className="cell large-3">
+            <StrategyFilter funds={this.state.orderedFund}/>
           </div>
-        </div>
-        <div id="fund-strategy" className="grid-container">
-          <StrategyFilter funds={this.state.orderedFund}/>
-        </div>
-        <hr></hr>
-        <div id="fund-container" className="grid-container">
-          <div className="funds-table">
-             <DinamicTable funds={this.state.orderedFund}/>
+          <div id="fund-container" className="cell large-9">
+            <div className="funds-table">
+              <DinamicTable funds={this.state.orderedFund}/>
+            </div>
           </div>
         </div>
       </div>

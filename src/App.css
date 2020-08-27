@@ -1,4 +1,4 @@
-.App {
+html{
   text-align: center;
   background-color: #e3e3e3;
 }
@@ -35,4 +35,16 @@ input.searchbar{
 
 #filter-container.grid-x .cell{
   padding: 30px;
+}
+
+div.container{
+  display: inline;
+}
+
+#fund-filter, #fund-container{
+  float: left;
+}
+
+#fund-strategy{
+  float: right;
 }
