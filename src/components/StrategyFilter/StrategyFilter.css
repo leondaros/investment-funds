@@ -1,6 +1,9 @@
 .card-divider .input-group{
     text-transform: uppercase;
 }
+div.card-section{
+    border-bottom: 2px solid #f4f5f7;
+}
 
 div.input-group{
     display: flex;

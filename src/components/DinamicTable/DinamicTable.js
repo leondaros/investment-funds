@@ -1,8 +1,8 @@
 import React from 'react'
 import './DinamicTable.css'
 import Moment from 'react-moment';
-import aplicar from './aplicar.png'
-import information from './information.png'
+import aplicar from '../../images/aplicar.png'
+import information from '../../images/information.png'
 
 import { LinkWithTooltip } from 'react-foundation-components/lib/tooltip';
 

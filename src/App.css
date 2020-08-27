@@ -5,7 +5,7 @@
 }
 
 .header{
-  background: url("./hero.jpg") no-repeat center top;
+  background: url("./images/hero.jpg") no-repeat center top;
   padding: 140px 90px 50px 90px;
   display: flex;
   flex-direction: column;
@@ -27,6 +27,11 @@
 }
 
 .title{
+  font-weight: bold;
+}
+
+p.limit-value{
+  font: 500 13px/1.5 "Roboto",sans-serif;
   font-weight: bold;
 }
 
